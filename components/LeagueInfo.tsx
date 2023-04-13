@@ -18,8 +18,8 @@ const getPrice = (item: string, data: Line[]): number => {
 
 const LeagueInfo = ({ leagueData, priceData }: LeagueInfoProps) => {
   return (
-    <div className="rounded border p-3">
-      <h1 className="font-black">{leagueData.league}</h1>
+    <div className="flex flex-col rounded border p-3">
+      <h1 className="text-lg font-black">{leagueData.league}</h1>
       {leagueData.items
         .sort((a, b) => {
           const aPrice = getPrice(a, priceData);
@@ -28,9 +28,14 @@ const LeagueInfo = ({ leagueData, priceData }: LeagueInfoProps) => {
         })
         .slice(0, 10)
         .map((i, idx) => (
-          <p key={`price ${idx}`}>
+          <a
+            className="transition duration-200 hover:text-gray-400"
+            key={`price ${idx}`}
+            target="blank"
+            href={`https://www.poewiki.net/wiki/${i.replaceAll(" ", "_")}`}
+          >
             {i} - {getPrice(i, priceData)}c
-          </p>
+          </a>
         ))}
     </div>
   );
