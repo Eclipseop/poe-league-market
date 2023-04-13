@@ -1,6 +1,7 @@
 import { Line, Root } from "@/types/poe-ninja";
 import LeagueData from "../public/LeagueData.json";
 import { LeagueDataType } from "@/types/cringe";
+import LeagueInfo from "@/components/LeagueInfo";
 
 const leagueData = LeagueData as LeagueDataType[];
 
@@ -46,41 +47,6 @@ const getData = async () => {
   };
 };
 
-const LeagueItems = ({
-  leagueData,
-  data,
-}: {
-  leagueData: LeagueDataType;
-  data: Line[];
-}) => {
-  return (
-    <div className="rounded border p-3">
-      <h1 className="font-black">{leagueData.league}</h1>
-      {leagueData.items
-        .sort((a, b) => {
-          const aPrice = getPrice(a, data);
-          const bPrice = getPrice(b, data);
-          return bPrice - aPrice;
-        })
-        .slice(0, 10)
-        .map((i, idx) => (
-          <p key={`price ${idx}`}>
-            {i} - {getPrice(i, data)}c
-          </p>
-        ))}
-    </div>
-  );
-};
-
-const getPrice = (item: string, data: Line[]): number => {
-  let itemData = data.find((p) => p.name === item);
-  if (!itemData) itemData = data.find((p) => p.currencyTypeName === item);
-
-  if (itemData?.chaosEquivalent) {
-    return itemData.chaosEquivalent;
-  }
-  return itemData?.chaosValue ?? 0;
-};
 
 const Home = async () => {
   const data = await getData();
@@ -88,7 +54,7 @@ const Home = async () => {
   return (
     <div className="grid grid-cols-3 gap-3">
       {leagueData.map((ld, idx) => (
-        <LeagueItems key={idx} leagueData={ld} data={data.props} />
+        <LeagueInfo key={idx} leagueData={ld} priceData={data.props} />
       ))}
     </div>
   );
