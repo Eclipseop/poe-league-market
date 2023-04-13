@@ -40,7 +40,10 @@ const getData = async () => {
   const data: Root[] = await Promise.all(promises);
   const lines: Line[] = [];
   data.flatMap((val) => val.lines).forEach((l) => lines.push(l));
-  return lines;
+  return {
+    props: lines,
+    revalidate: 10
+  };
 };
 
 const LeagueItems = ({
@@ -85,7 +88,7 @@ const Home = async () => {
   return (
     <div className="grid grid-cols-3 gap-3">
       {leagueData.map((ld, idx) => (
-        <LeagueItems key={idx} leagueData={ld} data={data} />
+        <LeagueItems key={idx} leagueData={ld} data={data.props} />
       ))}
     </div>
   );
