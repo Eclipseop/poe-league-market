@@ -4,13 +4,24 @@
     "items": [
       "Clear Oil",
       "Tainted Oil",
-      "Sepia Oil"
+      "Sepia Oil",
+      "Amber Oil",
+      "Verdant Oil",
+      "Teal Oil", 
+      "Azure Oil",
+      "Indigo Oil",
+      "Violet Oil",
+      "Crimson Oil",
+      "Black Oil",
+      "Opalescent Oil",
+      "Silver Oil",
+      "Golden Oil"
     ]
   },
   {
-    "league": "Blight",
+    "league": "Breach",
     "items": [
-      "Clear Oil",
+      "Blessing of Xoph",
       "Tainted Oil",
       "Sepia Oil"
     ]

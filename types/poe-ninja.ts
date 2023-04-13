@@ -18,6 +18,8 @@ export interface Line {
   detailsId: string;
   listingCount: number;
   links?: number;
+  chaosEquivalent?: number;
+  currencyTypeName?: string;
 }
 
 export interface Language {

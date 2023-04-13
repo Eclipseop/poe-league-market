@@ -28,6 +28,8 @@ const urls = [
   "https://poe.ninja/api/data/itemoverview?league=Crucible&type=Beast&language=en",
   "https://poe.ninja/api/data/itemoverview?league=Crucible&type=Essence&language=en",
   "https://poe.ninja/api/data/itemoverview?league=Crucible&type=Vial&language=en",
+  "https://poe.ninja/api/data/currencyoverview?league=Crucible&type=Fragment&language=en",
+  "https://poe.ninja/api/data/currencyoverview?league=Crucible&type=Currency&language=en"
 ];
 
 const getData = async () => {
@@ -53,19 +55,31 @@ const LeagueItems = ({
       <h1 className="font-black">{leagueData.league}</h1>
       {leagueData.items
         .sort((a, b) => {
-          const aPrice = data.find((p) => p.name === a)?.chaosValue ?? 0;
-          const bPrice = data.find((p) => p.name === b)?.chaosValue ?? 0;
+          const aPrice = getPrice(a, data);
+          const bPrice = getPrice(b, data);
           return bPrice - aPrice;
         })
         .slice(0, 10)
         .map((i, idx) => (
           <p key={`price ${idx}`}>
-            {i} - {data.find((p) => p.name === i)?.chaosValue}
+            {i} - {getPrice(i, data)}c
           </p>
         ))}
     </div>
   );
 };
+
+const getPrice = (item: string, data: Line[]):number => {
+  let itemData = data.find((p) => p.name === item)
+  if (!itemData) itemData = data.find((p) => p.currencyTypeName === item)
+  if (item === 'Blessing of Xoph') {
+    console.log(itemData)
+  }
+  if (itemData?.chaosEquivalent) {
+    return itemData.chaosEquivalent;
+  }
+  return itemData?.chaosValue ?? 0;
+}
 
 const Home = async () => {
   const data = await getData();
