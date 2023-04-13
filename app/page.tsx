@@ -29,7 +29,7 @@ const urls = [
   "https://poe.ninja/api/data/itemoverview?league=Crucible&type=Essence&language=en",
   "https://poe.ninja/api/data/itemoverview?league=Crucible&type=Vial&language=en",
   "https://poe.ninja/api/data/currencyoverview?league=Crucible&type=Fragment&language=en",
-  "https://poe.ninja/api/data/currencyoverview?league=Crucible&type=Currency&language=en"
+  "https://poe.ninja/api/data/currencyoverview?league=Crucible&type=Currency&language=en",
 ];
 
 const getData = async () => {
@@ -69,17 +69,15 @@ const LeagueItems = ({
   );
 };
 
-const getPrice = (item: string, data: Line[]):number => {
-  let itemData = data.find((p) => p.name === item)
-  if (!itemData) itemData = data.find((p) => p.currencyTypeName === item)
-  if (item === 'Blessing of Xoph') {
-    console.log(itemData)
-  }
+const getPrice = (item: string, data: Line[]): number => {
+  let itemData = data.find((p) => p.name === item);
+  if (!itemData) itemData = data.find((p) => p.currencyTypeName === item);
+
   if (itemData?.chaosEquivalent) {
     return itemData.chaosEquivalent;
   }
   return itemData?.chaosValue ?? 0;
-}
+};
 
 const Home = async () => {
   const data = await getData();
